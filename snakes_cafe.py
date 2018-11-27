@@ -1,6 +1,7 @@
 from textwrap import dedent
 import sys
 
+#global variables and arrays
 quitting = False
 WIDTH = 50
 CATEGORIES = ['Appetizers', 'Entrees', 'Desserts', 'Drinks']
@@ -59,6 +60,8 @@ def welcome():
 
 
 def run_program():
+    """Function for starting the application
+    """
     welcome()
     while quitting is False:
         user_answer = str.lower(input())
@@ -66,25 +69,22 @@ def run_program():
     exit()
 
 def check_user_input(user_answer):
+    """Function for checking user answer and testing against the arrays
+    """
     if user_answer == 'quit':
         exit()
     else:
-        #need to iterate through BANK to check
+
         if (user_answer in APPS) or (user_answer in ENTR) or (user_answer in DESR) or (user_answer in DRIN) :
             print('Order of ' + user_answer + ' has been added to your meal')
+            add_to_order()
         else:
-            wrong+item()
+            print('Sorry. That item is not on the menu yet!')
     return
 
 
-
-def total_order():
+def add_to_order():
     print('total the order')
-
-
-def wrong_item():
-    print('Sorry. That item is not on the menu yet!')
-    return
 
 
 def exit():
