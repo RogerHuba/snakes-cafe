@@ -1,32 +1,13 @@
 from textwrap import dedent
 import sys
-print('This is the run test!')
 
-run = True
-WIDTH = 60
-BANK = [
-    {
-        'appetizer_one': 'wings',
-        'appetizer_two': 'cookies',
-        'appetizer_three': 'spring Rolls',
-    },
-    {
-        'entree_one': 'salmon',
-        'entree_two': 'steak',
-        'entree_three': 'meat tornado',
-        'entree_four': 'a literal garden',
-    },
-    {
-        'dessert_one': 'ice cream',
-        'dessert_two': 'cake',
-        'dessert_three': 'pie',
-    },
-    {
-        'drinks_one': 'coffee',
-        'drinks_two': 'tea',
-        'drinks_thress': 'blood of the innocent',
-    },
-]
+quitting = False
+WIDTH = 50
+CATEGORIES = ['Appetizers', 'Entrees', 'Desserts', 'Drinks']
+APPS = ['wings', 'cookies', 'spring rolls']
+DESR = ['ice cream', 'cake', 'pie']
+ENTR = ['salmon', 'steak', 'meat tornado', 'a literal garden']
+DRIN= ['coffee', 'tea', 'blood of the innocent']
 
 
 def welcome():
@@ -37,55 +18,78 @@ def welcome():
 
     welcome_string1 = 'Welcome to the Snakes Cafe!'
     wlecome_string2 = 'Please see our menu below.'
-    quit_string = 'To quit at any time, type quit.'
+    quit_string = 'To quit at any time, type "quit".'
+    question_string = 'What would you like to order?'
 
     print(dedent(f'''
         {'*' * WIDTH}
-        {(' ' ** ((WIDTH - len(welcome_string1)) // 2)) + welcome_string1 + (' ' ** ((WIDTH - len(welcome_string1)) // 2))}
-        {(' ' ** ((WIDTH - len(wlecome_string2)) // 2)) + wlecome_string2 + (' ' ** ((WIDTH - len(wlecome_string2)) // 2))}
- #       {' '}
-        {(' ' ** ((WIDTH - len(quit_string)) // 2)) + quit_string + (' ' ** ((WIDTH - len(quit_string)) // 2))}
+        {'**' + (' ' * (((WIDTH - len(welcome_string1)) -6) // 2)) + welcome_string1 + (' ' * ((WIDTH - len(welcome_string1)) // 2)) + '**'}
+        {'**' + (' ' * (((WIDTH - len(wlecome_string2)) -8) // 2)) + wlecome_string2 + (' ' * ((WIDTH - len(wlecome_string2)) // 2)) + '**'}
+        {'**' + (' ' * (WIDTH - 4)) + '**'}
+        {'**' + (' ' * (((WIDTH - len(quit_string)) -6) // 2))     + quit_string     + (' ' * ((WIDTH - len(quit_string)) // 2)) + '**'}
+        {'*' * WIDTH}
+        {' ' * WIDTH}
+        #Need to do a nested loop here to simplify code
+        {CATEGORIES[0]}
+        {'_' * len(CATEGORIES[0])}
+        {'Wings'}
+        {'Cookies'}
+        {'Spring Rolls'}
+        {CATEGORIES[1]}
+        {'_' * len(CATEGORIES[1])}
+        {'Salmon'}
+        {'Steak'}
+        {'Meat Tornado'}
+        {'A Literal Garden'}
+        {CATEGORIES[2]}
+        {'_' * len(CATEGORIES[2])}
+        {'Ice Cream'}
+        {'Cake'}
+        {'Pie'}
+        {CATEGORIES[3]}
+        {'_' * len(CATEGORIES[3])}
+        {'Coffee'}
+        {'Tea'}
+        {'Blood of the Innocent'}
+        {'*' * WIDTH}
+        {'**' + (' ' * (((WIDTH - len(question_string)) -6) // 2)) + question_string + (' ' * ((WIDTH - len(question_string)) // 2)) + '**'}
         {'*' * WIDTH}
     '''))
-
-    while run is True:
-        print('Ask the question to do the thing!')
-
-
-    # {(' ' * ((WIDTH - len(appetizer_one)) // 2)) + appetizer_one + (' ' * ((WIDTH - len(appetizer_one)) // 2))}
-    # {(' ' * ((WIDTH - len(appetizer_two)) // 2)) + appetizer_two + (' ' * ((WIDTH - len(appetizer_two)) // 2))}
-    # {(' ' * ((WIDTH - len(appetizer_three)) // 2)) + appetizer_three + (' ' * ((WIDTH - len(appetizer_three)) // 2))}
-    # {(' ' * ((WIDTH - len(entree_one)) // 2)) + entree_one + (' ' * ((WIDTH - len(entree_one)) // 2))}
-    # {(' ' * ((WIDTH - len(entree_two)) // 2)) + entree_two + (' ' * ((WIDTH - len(entree_two)) // 2))}
-    # {(' ' * ((WIDTH - len(entree_three)) // 2)) + entree_three + (' ' * ((WIDTH - len(entree_three)) // 2))}
-    # {(' ' * ((WIDTH - len(entree_four)) // 2)) + entree_four + (' ' * ((WIDTH - len(entree_four)) // 2))}
-    # {(' ' * ((WIDTH - len(drink_one)) // 2)) + drink_one + (' ' * ((WIDTH - len(drink_one)) // 2))}
-    # {(' ' * ((WIDTH - len(drink_two)) // 2)) + drink_two + (' ' * ((WIDTH - len(drink_two)) // 2))}
-    # {(' ' * ((WIDTH - len(drink_three)) // 2)) + drink_three + (' ' * ((WIDTH - len(drink_three)) // 2))}
-
-
-
-def check_user_input():
     return
-
 
 
 def run_program():
     welcome()
+    while quitting is False:
+        user_answer = str.lower(input())
+        check_user_input(user_answer)
+    exit()
+
+def check_user_input(user_answer):
+    if user_answer == 'quit':
+        exit()
+    else:
+        #need to iterate through BANK to check
+        if (user_answer in APPS) or (user_answer in ENTR) or (user_answer in DESR) or (user_answer in DRIN) :
+            print('Order of ' + user_answer + ' has been added to your meal')
+        else:
+            wrong+item()
     return
+
 
 
 def total_order():
-    return
-
+    print('total the order')
 
 
 def wrong_item():
+    print('Sorry. That item is not on the menu yet!')
     return
-
 
 
 def exit():
-    return
+    print('Thank you for your Order')
+    sys.exit()
+
 
 run_program()
