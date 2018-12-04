@@ -1,95 +1,104 @@
 from textwrap import dedent
 import sys
 
-#global variables and arrays
-quitting = False
-WIDTH = 50
-CATEGORIES = ['Appetizers', 'Entrees', 'Desserts', 'Drinks']
-APPS = ['wings', 'cookies', 'spring rolls']
-DESR = ['ice cream', 'cake', 'pie']
-ENTR = ['salmon', 'steak', 'meat tornado', 'a literal garden']
-DRIN= ['coffee', 'tea', 'blood of the innocent']
+
+WIDTH = 60
+
+menu = {
+    'Appetizers' : {
+      'Wings':0,
+        'Cookies':0,
+        'Spring Rolls':0
+    },
+    'Entrees': {
+        'Salmon':0,
+        'Steak':0,
+        'Meat Tornado':0,
+        'A Literal Garden':0,
+    },
+    'Desserts': {
+        'Ice Cream':0,
+        'Cake':0,
+        'Pie':0,
+    },
+    'Drinks': {
+        'Coffee':0,
+        'Tea':0,
+        'Blood of the Innocent':0,
+    }
+}
+
+def padEdges(str, width, ch =' '):
+    """Formatting for wording."""
+    str_len = len(str)
+    ragged_pad = ''
+    if width % 2 != str_len % 2:
+        ragged_pad = ch
+    return (ch * (((width - str_len)) // 2)) + str + (ch * ((width - str_len) // 2)) + ragged_pad
 
 
-def welcome():
-    """Function for creating a greeting and menu for the user
-    set variables for the menu
-    create the order menu
-    """
-
-    welcome_string1 = 'Welcome to the Snakes Cafe!'
-    wlecome_string2 = 'Please see our menu below.'
-    quit_string = 'To quit at any time, type "quit".'
-    question_string = 'What would you like to order?'
-
+def greeting():
+    """Set greeting for menu."""
+    line_1 = '** ' * (WIDTH // 3)
+    line_2 = 'Welcome to the Snakes Cafe'
+    line_3 = 'Please see our menu below'
+    line_4 = 'To quit at any time type "quit"'
     print(dedent(f'''
         {'*' * WIDTH}
-        {'**' + (' ' * (((WIDTH - len(welcome_string1)) -6) // 2)) + welcome_string1 + (' ' * ((WIDTH - len(welcome_string1)) // 2)) + '**'}
-        {'**' + (' ' * (((WIDTH - len(wlecome_string2)) -8) // 2)) + wlecome_string2 + (' ' * ((WIDTH - len(wlecome_string2)) // 2)) + '**'}
-        {'**' + (' ' * (WIDTH - 4)) + '**'}
-        {'**' + (' ' * (((WIDTH - len(quit_string)) -6) // 2))     + quit_string     + (' ' * ((WIDTH - len(quit_string)) // 2)) + '**'}
-        {'*' * WIDTH}
-        {' ' * WIDTH}
-        #Need to do a nested loop here to simplify code
-        {CATEGORIES[0]}
-        {'_' * len(CATEGORIES[0])}
-        {'Wings'}
-        {'Cookies'}
-        {'Spring Rolls'}
-        {CATEGORIES[1]}
-        {'_' * len(CATEGORIES[1])}
-        {'Salmon'}
-        {'Steak'}
-        {'Meat Tornado'}
-        {'A Literal Garden'}
-        {CATEGORIES[2]}
-        {'_' * len(CATEGORIES[2])}
-        {'Ice Cream'}
-        {'Cake'}
-        {'Pie'}
-        {CATEGORIES[3]}
-        {'_' * len(CATEGORIES[3])}
-        {'Coffee'}
-        {'Tea'}
-        {'Blood of the Innocent'}
-        {'*' * WIDTH}
-        {'**' + (' ' * (((WIDTH - len(question_string)) -6) // 2)) + question_string + (' ' * ((WIDTH - len(question_string)) // 2)) + '**'}
+        {'**' + padEdges(line_2, WIDTH - 4) + '**'}
+        {'**' + padEdges(line_3, WIDTH - 4) + '**'}
+        {'**' + padEdges('', WIDTH - 4) + '**'}
+        {'**' + padEdges(line_4, WIDTH - 4) + '**'}
         {'*' * WIDTH}
     '''))
-    return
 
 
-def run_program():
-    """Function for starting the application
-    """
-    welcome()
-    while quitting is False:
-        user_answer = str.lower(input())
-        check_user_input(user_answer)
-    exit()
+def ask():
+    """Ask user for order suggestions"""
+    print(dedent(f'''
+    {'*' * WIDTH}
+    {'**' + padEdges('What would you like to order?', WIDTH - 4) + '**'}
+    {'*' * WIDTH}
+    '''))
 
-def check_user_input(user_answer):
-    """Function for checking user answer and testing against the arrays
-    """
-    if user_answer == 'quit':
+
+def print_menu():
+    """Show the menu based on what has been ordered"""
+    for course in menu:
+        print(course)
+        print('-' * len(course))
+        for item in menu[course]:
+            print(item)
+        print('\n')
+
+
+def process_order(order):
+    """Process user selected options"""
+    if order == 'quit' or order == 'Quit' or order == 'QUIT':
         exit()
-    else:
-
-        if (user_answer in APPS) or (user_answer in ENTR) or (user_answer in DESR) or (user_answer in DRIN) :
-            print('Order of ' + user_answer + ' has been added to your meal')
-            add_to_order()
-        else:
-            print('Sorry. That item is not on the menu yet!')
-    return
-
-
-def add_to_order():
-    print('total the order')
-
+    found = False
+    for course in menu:
+        if order in menu[course]:
+            menu[course][order] += 1
+            print(f'You have {menu[course][order]} {order}')
+            found = True
+            break
+    if not found:
+        print('Try again, items are Case sensitive')
 
 def exit():
+    """Gracefull Exit."""
     print('Thank you for your Order')
     sys.exit()
 
 
-run_program()
+if __name__ == '__main__':
+    greeting()
+    print_menu()
+    ask()
+
+    order = None
+
+    while order != 'quit':
+        order = input()
+        process_order(order)

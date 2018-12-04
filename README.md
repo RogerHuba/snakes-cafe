@@ -6,5 +6,5 @@ make menu selections from a pre-defined menu system.
 
 Specific formatting will drive the size of the menu.
 
-When a user selects a menu item, the program will remmeber what they ordered and if a
+When a user selects a menu item, the program will remember what they ordered and if a
 second menu item is chosen, the program will know.
