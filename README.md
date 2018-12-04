@@ -1,10 +1,22 @@
 # snakes-cafe
-Day1Lab1
 
-This program will provide a display menu to a end user and prompt them to
-make menu selections from a pre-defined menu system.
+**Author**: Roger Huba
+**Version**: 1.2.0 (increment the patch/fix version number up if you make more commits past your first submission)
 
-Specific formatting will drive the size of the menu.
+## Overview
+<!-- Present the user with a menu of options to order.  When the user enters a choice, that choice will be saved and totaled.-->
 
-When a user selects a menu item, the program will remember what they ordered and if a
-second menu item is chosen, the program will know.
+## Getting Started
+<!-- Have Python 3.7 installed -->
+
+## Architecture
+<!-- Pythin was used for programming.  Pipenv was used for virtual environment.-->
+
+## API
+<!-- N/A-->
+
+## Change Log
+<!--
+11-27-2018 08:80am - Ready for submit with needed changes.
+12-03-2018 11:25pm - Added functionality for re-submit.
+-->
